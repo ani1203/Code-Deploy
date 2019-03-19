@@ -1,0 +1,22 @@
+version: 0.0
+os: linux
+files:
+  - source: /index.html
+    destination: /var/www/html/
+permissions:
+  - object: /var/www/html/
+    owner: root
+    group: root
+    mode: 777
+hooks:
+  BeforeInstall:
+    - location: scripts/installapache.sh
+      timeout: 300
+      runas: root
+    - location: scripts/restartapache.sh
+      timeout: 300
+      runas: root
+  ApplicationStop:
+    - location: scripts/startapache.sh
+      timeout: 300
+      runas: root
